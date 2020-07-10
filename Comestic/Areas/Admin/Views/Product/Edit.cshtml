@@ -1,0 +1,136 @@
+﻿
+@model Comestic.Models.ViewModels.ProductViewModel
+@using Comestic.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Edit Product</h2>
+<br />
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="border backgroundWhite row">
+        <input type="hidden" asp-for="Product.Id" />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Name" class="col-form-label">Tên sản phẩm</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Description" class="col-form-label">Mô tả</label>
+                </div>
+                <div class="col-8">
+                    @Html.TextAreaFor(m => m.Product.Description)
+                </div>
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.NewPrice" class="col-form-label">Giá mới</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.NewPrice" class="form-control" />
+                </div>
+                <span asp-validation-for="Product.NewPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.OldPrice" class="col-form-label">Giá cũ</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.OldPrice" class="form-control" />
+                </div>
+                <span asp-validation-for="Product.OldPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Image" class="col-form-label">Ảnh</label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.CategoryId" class="col-form-label">Loại sản phẩm</label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.Product.CategoryId" id="CategoryId" asp-items="Model.Category.ToSelectListItem(Model.Product.CategoryId)" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.SubCategoryId" class="col-form-label">Loại danh mục SP</label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.Product.SubCategoryId" name="SubCategoryId" id="SubCategoryId" asp-items="@(new SelectList(string.Empty,"Id","Name"))" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Tag" class="col-form-label">Tags</label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Product.Tag" asp-items="Html.GetEnumSelectList<Product.ETag>()" class="form-control"></select>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-3 offset-1">
+            <img src="@Model.Product.Image" width="100%" style="border-radius:5px;border: 1px solid #bbb9b9;" />
+        </div>
+
+        <div class="col-8">
+            <div class="col-8 offset-4 row">
+              
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-primary form-control" asp-route-id="@Model.Product.Id" value="Cập nhật" />
+                    </div>
+                    <div class="col-6">
+                        <a asp-action="Index" class="btn btn-success form-control">Quay về</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</form>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getSubCategory();
+            $('#CategoryId').change(function () {
+                getSubCategory();
+            });
+        });
+        function getSubCategory() {
+            var url = '@Url.Content("~/")' + "Admin/SubCategory/GetSubCategory";
+            var ddlsoruce = '#CategoryId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#SubCategoryId').empty();
+                $.each(data, function (i, subcategory) {
+                    items += "<option value='" + subcategory.value + "'>" + subcategory.text + "</option>";
+                });
+                $('#SubCategoryId').html(items);
+            })
+        }
+    </script>
+
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

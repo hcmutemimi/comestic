@@ -1,0 +1,53 @@
+﻿Skip to content
+Search or jump to…
+
+@model Comestic.Models.SubCategory
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<br />
+<br />
+<br />
+
+<h2 class="text-info">Xoá danh mục loại sản phẩm</h2>
+<br />
+<form method="post" asp-action="Delete">
+    <div class="p-4 border rounded">
+        <input type="hidden" asp-for="Id" />
+        <fieldset disabled>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name" class="custom-label"> Tên danh mục LSP</label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Category.Name" class="custom-label">Loại sản phẩm</label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Category.Name" class="form-control" />
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <div class="form-group row">
+            <div class="offset-2">
+            </div>
+            <div class="col-5 row">
+                <div class="col-6">
+                    <input type="submit" class="btn btn-primary form-control" asp-route-id="@Model.Id" value="Xoá" />
+                </div>
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-success form-control">Quay về</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+

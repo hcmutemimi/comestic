@@ -1,0 +1,110 @@
+﻿@model Comestic.Models.ShoppingCart
+
+@using Comestic.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@*<h2 class="text-info">Chi tiết sản phẩm</h2>*@
+<br />
+<div class="breadcrumb">
+    <ul class="home-product-list">
+        <li class="home-product-item">
+            <a href="/" class="home-product-link">Trang chủ</a>
+            <i class="home-product-icon fas fa-angle-right"></i>
+        </li>
+        <li class="home-product-item">
+            <a href="" class="home-product-link"><input asp-for="Product.Category.Name" readonly class="home-product-item-category"></a>
+            <i class="home-product-icon fas fa-angle-right"></i>
+        </li>
+        <li class="home-product-item">
+            <input asp-for="Product.Name" readonly class="title-description-detail " />
+        </li>
+    </ul>
+</div>
+<form method="post">
+    <div class="border backgroundWhite row">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-3 ">
+            <img src="@Model.Product.Image" class="image-detail"/>
+        </div>
+        <div class="col-6 offset-1">
+            <div class="row">
+                <input asp-for="Product.Name" readonly class="title-description-detail-2"/>
+            </div>
+            <div class="row">
+                <div class="product__rating-item nopadding-product">
+                    <a href="#" class="product__rating-item-index" style="color: var(--red-color);">4.8</a>
+                    <i class="product__rating-star home-product-item__star--gold font-size14 fas fa-star "></i>
+                    <i class="product__rating-star home-product-item__star--gold font-size14 fas fa-star"></i>
+                    <i class="product__rating-star home-product-item__star--gold font-size14 fas fa-star"></i>
+                    <i class="product__rating-star home-product-item__star--gold font-size14 fas fa-star"></i>
+                    <i class="product__rating-star home-product-item__star--grey font-size14 fas fa-star"></i>
+                </div>
+               
+            </div>
+            <div class="row">
+                <span class="" style="margin :20px 0; ">Mô tả sản phẩm:</span>
+                <div class="description-nopadding">
+                    @Html.Raw(Model.Product.Description)
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.NewPrice" class="detail-new-price">Giá:
+                        <input asp-for="Product.NewPrice" readonly  class="detail-new-price-input"/>
+                        <sup class="dong">đ</sup>  <input asp-for="Product.OldPrice" class="detail-old-price"readonly/><sup class="dong-nho">đ</sup>
+                    </label>
+                </div>
+                <div class="col-8">
+
+                </div>
+
+            </div>
+           
+            @*<div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Tag" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Product.Tag" asp-items="Html.GetEnumSelectList<Product.ETag>()" disabled  class="tag form-control"></select>
+                </div>
+            </div>*@
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Count" class="col-form-label">Số lượng</label>
+                </div>
+                <div class="col-2 offset-1 " style="margin-left:48px;">
+                    <input asp-for="Count" type="number" class="form-control input-qty" value="1" name="quantity" min="1" max="999" style="height:36px"/>
+                
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <div class="product__cart-buy " style=" display: flex; align-items: center; padding: 16px 0px;">
+                        <a asp-action="Index" class="product__cart-buy-item product__cart-buy-now"><i class="fas fa-arrow-alt-circle-left back-continute-icon" style="margin-right:4px"></i>Trở về</a>
+                        <button type="sumbit" value="Add to cart" class="product__cart-buy-item product__cart-buy-add">
+                            <i class="fas fa-cart-plus"></i>Thêm giỏ hàng
+                        </button>
+
+                    </div>
+                </div>
+               
+              
+               
+            </div>
+        </div>
+
+
+    </div>
+    <input asp-for="ProductId" hidden />
+</form>
+
+@section Scripts{
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

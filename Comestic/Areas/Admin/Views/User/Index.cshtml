@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border_"></div>
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Danh sách người dùng</h2>
+        </div>
+        <div class="col-3 offset-3 text-right ">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info"> <i class="fas fa-plus"></i>&nbsp; Thêm nhân viên</a>
+        </div>
+
+    </div>
+    <form method="get" asp-action="Index">
+        <div class="row">
+            <div class="col-3">
+                <input type="search" placeholder="nhập từ tìm kiếm" value="@ViewData["Getemployeedetails"]" name="User" style="width:200px" />
+            </div>
+            <div class="col-1">
+                <button class="btn btn-primary" type="submit" value="Search">
+                    <i class="fa fa-search"></i>
+                </button>
+                </div>
+            <div class="col-3">
+                <a asp-action="Index" class="btn btn-primary " style="width: 104px; height: 31px">Show All</a>
+            </div>
+      </div>
+</form>
+ </div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        Tên nhân viên
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Số điện thoại
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Phone)
+                        </td>
+                        <td>
+                            @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
+                            {
+                                <a class="btn btn-success text-white" asp-action="Lock" asp-route-id="@item.Id" style="width:30px">
+                                    <i class="fas fa-lock-open"></i>
+                                </a>
+                            }
+                            else
+                            {
+
+                                <a class="btn btn-danger text-white" asp-action="UnLock" asp-route-id="@item.Id"style="width:30px">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            <p class="title-noavalible">No User availble ...</p>
+        }
+
+
+
+

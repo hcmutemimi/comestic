@@ -1,0 +1,275 @@
+﻿@using Comestic.Ulitity
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]Comestic & SkinCare</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/carousel/owl.carousel.min.css" rel="stylesheet" />
+    <link href="./lib/carousel/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link href="https://cor.vn/uploads/source/logoco/logoco.jpg" rel="shortcut icon" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/main.css" rel="stylesheet" />
+
+</head>
+<body>
+    <header>
+        <nav id="navbarscroll" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-title" asp-area="" asp-controller="Home" asp-action="Index">Comestic</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+
+                        <li asp-action="Index" class="nav-item dropdown  "><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link-title nav-link">Trang chủ</a></li>
+
+                        <li class="nav-item dropdown nav-link hotline" style="cursor:default"><i class="fas fa-phone header-cart-icon-phone " style="margin-right:5px"></i>Hotline: 0329806032</li>
+
+
+                        @if (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.EmployeeUser))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle nav-link-title" href="#" role="button" id="navbarDropDownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Quản lý
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Loại sản phẩm</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">Danh mục loại sản phẩm </a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Sản phẩm</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Khuyến mãi</a>
+                                    @if (User.IsInRole(SD.ManagerUser))
+                                    {
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
+                                    }
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.EmployeeUser) || User.IsInRole(SD.CustomerUser))
+                        {
+                            <li class="nav-item">
+                                <a asp-area="Customer" asp-controller="Order" asp-action="OrderHistory" class="nav-link">
+                                    Lịch sử đơn hàng
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ManagerUser))
+                        {
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle nav-link-title" href="#" role="button" id="navbarDropDownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Đơn hàng
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="ManageOrder">Quản lí đơn hàng</a>
+                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="Ordered">Đơn hàng hoàn thành </a>
+                                </div>
+                            </li>
+                         }
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("ssCartCount") != null)
+                            {
+                                <li class="cart">
+                                    <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="cart-link nav-link">
+                                        @{
+                                            var count = HttpContextAccessor.HttpContext.Session.GetInt32("ssCartCount");
+                                        }
+                                        <i class="fas fa-shopping-cart shopping-cart"></i> &nbsp; <span class="header-cart-notice--2">
+                                            @count
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+
+
+                        </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="">
+            @RenderBody()
+        </main>
+
+    </div>
+
+   
+
+
+    <div class="border--footer"></div>
+    <footer class="">
+        <div class="background__footer">
+            <div class="background__footer--opacity">
+                <ul class="layout__footer--list">
+                    <li class="layout__footer--item">
+                        <div class="layout__footer--header">
+
+                            <div class="layout__footer--title ">
+                                <h6> HỆ THỐNG CỬA HÀNG</h6>
+                            </div>
+                        </div>
+                        <ul class="address">
+                            <li class="address--item">
+                                <a href="address1" title="Số 71, Đường số 3, Cư Xá Đô Thành, P4, Q3 - 0911 784 114 ">
+                                    <i class="fas fa-map-marker-alt address--icon"></i>
+                                    <span class="title-header font-size-08rem">Quận 3 Tp.HCM -</span>
+                                    <span class="title--sub font-size-08rem">Số 71, Đường số 3, Cư Xá Đô Thành, P4, Q3 - 0911 784 114 </span>
+                                    <img src="./images/maps-compressor.png" alt="">
+                                </a>
+                            </li>
+                            <li class="address--item">
+                                <a href="address2" title=" 98B Phan Đăng Lưu, P.3, Q.Phú Nhuận - 0911 384 114">
+                                    <i class="fas fa-map-marker-alt address--icon"></i>
+                                    <span class="title-header"> Q.Phú Nhuận Tp.HCM  -</span>
+                                    <span class="title--sub"> 98B Phan Đăng Lưu, P.3, Q.Phú Nhuận - 0911 384 114</span>
+                                    <img src="./images/maps-compressor.png" alt="">
+                                </a>
+                            </li>
+                            <li class="address--item">
+                                <a href="address3" title="152, Chùa Lộc, Quận Đống Đa, Hà Nội">
+                                    <i class="fas fa-map-marker-alt address--icon"></i>
+                                    <span class="title-header"> Hà Nội -</span>
+                                    <span class="title--sub">152, Chùa Lộc, Quận Đống Đa, Hà Nội - 0911 384 114</span>
+                                    <img src="./images/maps-compressor.png" alt="">
+                                </a>
+                            </li>
+                            <li class="address--item">
+                                <a href="address3" title=" 94 Âu Cơ, P.Hòa Khánh Bắc, Q.Liên Chiểu, TP. Đà Nẵng ">
+                                    <i class="fas fa-map-marker-alt address--icon"></i>
+                                    <span class="title-header"> Gia Lai -</span>
+                                    <span class="title--sub"> 79 Hai Bà Trưng, P.Diên Hồng, Tp.Pleiku,Tỉnh Gia Lai - 0911 384 114</span>
+                                    <img src="./images/maps-compressor.png" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="layout__footer--item">
+                        <div class="layout__footer--header">
+                            <div class="layout__footer--title layout__footer--title--border">
+                                <h6>HỖ TRỢ KHÁCH HÀNG</h6>
+                            </div>
+                        </div>
+                        <ul class="address">
+                            <li class="address--item "><a href="">Chính sách bảo mật</a></li>
+
+                            <li class="address--item "><a href="">Phương thức đặt hàng</a></li>
+
+                            <li class="address--item "><a href="">Chính sách vận chuyển</a></li>
+
+                            <li class="address--item "><a href="">Chính sách đổi trả</a></li>
+                        </ul>
+                    </li>
+                    <li class="layout__footer--item">
+                        <div class="layout__footer--header">
+                            <div class="layout__footer--title layout__footer--title--border">
+                                <h6>GIỚI THIỆU COR.VN</h6>
+                            </div>
+                        </div>
+                        <ul class="address">
+                            <li class="address--item "><a href="">Về Cỏ</a></li>
+                            <li class="address--item">Địa chỉ: 255 Bình Lợi, P. 13, Q. Bình Thạnh. Tp.HCM</li>
+                            <li class="address--item "> <i class="fas fa-phone address--icon"></i>Hotline: 0902611297 - 0329806032 or</li>
+                            <li class="address--item "><i class="far fa-envelope address--icon"></i>Mail: corcosmetics.skincare@gmail.com</li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="layout__footer--list">
+                    <li class="layout__footer--item ">
+                        <div class="layout__footer--header">
+                            <div class="layout__footer--title layout__footer--title--border">
+                                <h6>WEBSITE THUỘC QUYỀN</h6>
+                            </div>
+                        </div>
+                        <ul class="address">
+                            <li class="address--item">CÔNG TY CỔ PHẦN CỎ COSMETICS & SKINCARE</li>
+                            <li class="address--item">ĐKKD số: 0314635748</li>
+                            <li class="address--item">Do Sở KH&ĐT Tp. HCM Cấp ngày 21/09/2017</li>
+                        </ul>
+                    </li>
+                    <li class="layout__footer--item ">
+                        <div class="layout__footer--header">
+                            <div class="layout__footer--title layout__footer--title--border">
+                                <h5>THEO DÕI</h5>
+                            </div>
+                        </div>
+                        <ul class="address">
+                            <li class="address--item "><a href=""><i class="footer-icon fab fa-facebook"></i>Facebook</a></li>
+                            <li class="address--item "><a href=""><i class="footer-icon fab fa-instagram"></i>Instagram</a></li>
+                            <li class="address--item "> <a href=""><i class="footer-icon fab fa-linkedin"></i>LinkedIn</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="layout__footer--item ">
+                        <div class="layout__footer--header">
+                            <div class="layout__footer--title layout__footer--title--border">
+                                <h6>VÀO CỬA HÀNG TRÊN ỨNG DỤNG</h6>
+                            </div>
+                        </div>
+                        <ul class="address">
+                            <li class="address--item ">
+                                <div class="footer-download">
+                                    <img src="./images/QRcode.png" alt="" class="footer-download-qr">
+                                    <div class="footer-download-app">
+                                        <a href="" class="footer-download-app-link">
+                                            <img src="./images/appstore1.png" alt="" class="footer-download-img appstore">
+                                        </a>
+                                        <a href="" class="footer-download-app-link">
+                                            <img src="./images/chplay3.png" alt="" class="footer-download-img">
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="footer--title">
+            <span>
+                &#169 2020 Cỏ Comestics & Skincare
+            </span>
+        </div>
+    </footer>
+    <button onclick="topFunction()" id="scroll-to-top">
+        <img src="~/images/scroll.png" alt="" class="img-scroll">
+    </button>
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var navbar = document.getElementById("navbarscroll");
+        var sticky = navbar.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > 60) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="https://cdn.tiny.cloud/1/uw0zv1pinqlqautiotpl9zujshvniwrhcjce5rtcbfx3c7ky/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/lib/carousel/owl.carousel.min.js"></script>
+    <script src="~/lib/carousel/carousel.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

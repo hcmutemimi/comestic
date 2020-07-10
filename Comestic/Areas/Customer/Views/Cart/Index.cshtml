@@ -1,0 +1,113 @@
+﻿@model Comestic.Models.ViewModels.OrderDetailsCart
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post">
+    @if (Model.listCart.Count > 0)
+    {
+        <br />
+        <input id="userId" asp-for="@Model.listCart[0].ApplicationUserId" hidden />
+        <div class="backgroundWhiteBorder margin-card">
+            <div class="container">
+               
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            <i class="fa fa-shopping-cart"></i> &nbsp;
+                           Giỏ hàng
+                        </div>
+                    </div>
+           
+                <div class="cart">
+                    <div class="col-lg-8 no-gutters">
+                        <ul class="row-1 font-size09">
+                            <li class="cart__heading">
+                                Giỏ hàng <span>(@Model.listCart.Count()) sản phẩm</span>
+                            </li>
+                            <li class="cart__heading-text-small cart__heading-text-small3">
+                                Giá mua
+                            </li>
+                            <li class="cart__heading-text-small cart__heading-text-small2">
+                                Số lượng
+                            </li>
+                            <li class="cart__heading-text-small cart__heading-text-small2">
+                                .
+                            </li>
+
+                        </ul>
+                        @foreach (var item in Model.listCart)
+                        {
+                            <div class="row-2 cart__product-display">
+                                <ul class="row-1 col-lg-5">
+                                    <li class="cart__product-display-info">
+                                        <img src="@item.Product.Image" alt="" class="header-cart-item-img product__description-right-product-image header-cart-item-img-cart">
+                                        <div class="header-cart-item-head header-cart-item-head-cart">
+                                            <a class="header-cart-item-name ">@item.Product.Name</a>
+                                            <div class="header-cart-item-describe-cart">
+                                                <button type="submit" asp-action="remove" asp-route-cartId="@item.Id" style="border: none; outline: none; background-color: transparent; color: red;">Xoá</button>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+                                <ul class="row-1 col-lg-7 row-1-1">
+                                    <li class="cart-item">
+                                        <div class="home__product__img--price home__product__img--price-cart">
+                                            <p class="price--new price--new-cart product__description-right-product-same-price">@item.Product.NewPrice<sup style="margin-right:5px;">đ</sup></p>
+                                            <p class="price--old price--old-cart">@item.Product.OldPrice<sup>đ</sup></p>
+
+                                        </div>
+                                    </li>
+                                    <li class="cart-item">
+
+                                        <span style="        font-size: 14px; color: #807d7d;margin-left: 24px; margin-top:7px;"> x @item.Count</span>
+                                    </li>
+                                    <li class="cart-item ">
+                                        <div class="form-group updateqty">
+                                            <button type="submit" class="btn btn-plus" asp-action="plus" asp-route-cartId="@item.Id">
+                                                <i class="fas fa-plus " style="color: #199427"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-minus" asp-action="minus" asp-route-cartId="@item.Id">
+                                                <i class="fas fa-minus " style="color:red "></i>
+                                            </button>
+
+
+                                        </div>
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        }
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card__cart">
+                            <div class="card-header card__cart-">
+                                <div><span>Tạm tính: </span></div>
+                                <span class="cart__total">@Model.OrderHeader.OrderTotal <sup>d</sup>  </span>
+                            </div>
+                            <div class="card-body  card__cart-">
+                                <span>Thành tiền: </span>
+                                <span class="cart__total-payment">@Model.OrderHeader.OrderTotal <sup>d</sup>  </span>
+
+                            </div>
+                            <span class="text-not-fee">(Chưa bao gồm phí vận chuyển)</span>
+                        </div>
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn--primary btn--continute font-size09" style="width:100%"><i class="fas fa-arrow-alt-circle-left back-continute-icon"></i>TIẾP TỤC MUA HÀNG</a>
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Summary" class="btn btn--primary btn--order font-size09" style="width:100%">TIẾN HÀNH ĐẶT HÀNG</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+</form>
+

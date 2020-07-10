@@ -1,0 +1,38 @@
+﻿@model Comestic.Models.Category
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 class="text-info">Thêm loại sản phẩm</h2>
+<form method="post" asp-action="Create">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name"> Tên loại SP</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="offset-2">
+            </div>
+            <div class="col-5 row">
+                <div class="col-6"><input type="submit" class="btn btn-primary form-control" value="Thêm mới"/></div>
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-success form-control">Quay về</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

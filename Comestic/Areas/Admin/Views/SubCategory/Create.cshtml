@@ -1,0 +1,57 @@
+﻿@model Comestic.Models.ViewModels.SubCategoryandCategoryViewModel
+@using Comestic.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-info">Thêm mới danh mục LSP</h2>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<form method="post" asp-action="Create">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="SubCategory.CategoryId" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select id="ddlCategoryList" asp-for="SubCategory.CategoryId"
+                        asp-items="Model.CategoryList.ToSelectListItem(Model.SubCategory.CategoryId)" class="form-control">
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            
+            <div class="col-3">
+                <label asp-for="SubCategory.Name">Tên danh mục LSP</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="SubCategory.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="SubCategory.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-3 row">
+                <div class="col-6"><input type="submit" class="btn btn-primary form-control" value="Thêm" /></div>
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-success form-control">Quay về</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@*<div class="col-3 offset-1">
+    @if (Model.SubCategoryList.Count() > 0)
+    {
+        <p>Existing Subcategoryes:</p>
+        <div id="SubCategoryList">
+            <ul class="list-group">
+                <li></li>
+            </ul>
+        </div>
+    }
+</div>*@
+

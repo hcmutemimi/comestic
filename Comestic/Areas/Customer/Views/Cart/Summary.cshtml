@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewData["Title"] = "Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Comestic.Models.ViewModels.OrderDetailsCart
+@using Microsoft.Extensions.Options
+@inject IOptions<Comestic.Ulitity.StripeSettings> Stripe
+
+<form method="post">
+    @if (Model.listCart.Count > 0)
+    {
+        <br />
+        <input id="userId" asp-for="@Model.listCart[0].ApplicationUserId" hidden />
+        <div class="backgroundWhiteBorder margin-card">
+              <div class="card-body">
+                <div class="container rounded p-2">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 pb-4">
+                            <h4 class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="" style="        color: #199427;
+                                font-family: 'Roboto', sans-serif">THÔNG TIN ĐƠN HÀNG</span>
+                            </h4>
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    <label>Tên khách hàng</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="@Model.OrderHeader.Comments " type="text" id="txtname" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    <label>Số điện thoại</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="@Model.OrderHeader.PhoneNumber " type="text" id="txtphone" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    <label>Tỉnh/TP</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="@Model.OrderHeader.city " type="text" id="txtcity" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    <label>Quận/Huyện</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="@Model.OrderHeader.district " type="text" id="txtdistrict" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    <label>Phường/Xã,tên đường/số nhà</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="@Model.OrderHeader.street " type="text" id="txtstreet" class="form-control" />
+                                </div>
+                            </div>
+                           
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    <label>Ngày đặt hàng</label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="@Model.OrderHeader.PickUpDate " type="text" class="form-control" id="datepicker" value="" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-5 offset-lg-1">
+                            <h4 class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="" style="        color: #199427;font-family: 'Roboto', sans-serif">GIỎ HÀNG</span>
+                            </h4>
+                            <ul class="list-group mb-3">
+                                @{ var total = 0.0;}
+                                @foreach (var details in Model.listCart)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="my-0">
+                                                @(details.Product.Name)
+                                            </h6>
+                                            <small class="text-muted"> Số lượng : @details.Count</small>
+
+                                        </div>
+                                        @{ total += (details.Product.NewPrice + details.Count);}
+                                    </li>
+                                }
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <small class="text-info">Tổng cộng: (vnd)</small>
+                                    <span class="text-info">@(Model.OrderHeader.OrderTotal)</span>
+                                </li>
+
+                            </ul>
+                            <button type="submit" id="btnorder" onclick="return validateInput()" class="btn btn--primary btn--order font-size09" style="width:100%">ĐẶT HÀNG</button>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 col-md-4 offset-md-8">
+                        @{
+                            var OrderTotalForStrip = Model.OrderHeader.OrderTotal*100;
+                        }
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="@Stripe.Value.PublishableKey"
+                                data-amount="@OrderTotalForStrip"
+                                data-name="Comestic"
+                                data-label="Đơn hàng"
+                                data-description="Good Food, Good Mood."
+                                data-locale="auto"
+                                data-allow-remember-me="false"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                        </script>
+                        <script>
+                            document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                        </script>
+                     
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+        
+    else { 
+                 <div class="backgroundWhiteBorder"> Bạn chưa thêm sản phẩm nào cả</div>
+         }
+
+</form>
+@section Scripts{
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ minDate: 0, maxDate: "+1W" });
+        });
+
+        function validateInput() {
+            var date = document.getElementById("datepicker").value;
+            var phone = document.getElementById("txtphone").value;
+            var name = document.getElementById("txtname").value;
+            var city = document.getElementById("txtcity").value;
+
+            var district = document.getElementById("txtdistrict").value;
+            var street = document.getElementById("txtstreet").value;
+            if (date.toString() == '') {
+                alert('Bạn chưa nhập ngày đặt hàng');
+                return false;
+            }
+            else {
+                if (phone.toString() == '') {
+                    alert('Bạn chưa nhập sdt');
+                    return false;
+                }
+                else {
+                    if (name.toString() == '') {
+                        alert('Bạn chưa nhập tên');
+                        return false;
+                    }
+                    else {
+                        if (city.toString() == '') {
+                            alert('Bạn chưa nhập tỉnh/tp');
+                            return false;
+                        }
+                        else {
+                            if (district.toString() == '') {
+                                alert('Bạn chưa nhập quận/huyện');
+                                return false;
+                            }
+                            else {
+                                if (street.toString() == '') {
+                                    alert('Bạn chưa nhập Phương/Xã, tên đường/số nhà');
+                                    return false;
+                                }
+                                else {
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    </script>
+    }
+

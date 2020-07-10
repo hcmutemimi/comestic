@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Comestic.Models.Category
+@{
+    ViewData["Title"] = "Delete";
+}
+
+ <h2 class="text-info">Xoá loại sản phẩm</h2>
+<form method="post" asp-action="Delete">
+    <div class="p-4 border rounded">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name">Tên loại SP </label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Name" disabled class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="offset-4">
+            </div>
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary form-control" asp-route-id="@Model.Id" value="Xoá" />
+            </div>
+            <div class="col-2">
+                <a asp-action="Index" class="btn btn-success form-control">Quay về</a>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+

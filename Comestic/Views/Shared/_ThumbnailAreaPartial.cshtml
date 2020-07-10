@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Product>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@if (Model.Count() > 0)
+{
+    <div class="col-12 post@Model.FirstOrDefault().Category.Name.Replace(" ",string.Empty) menu-restaurant">
+        <div class="row">
+            <h4 class="text-success title-category"> @Model.FirstOrDefault().Category.Name </h4>
+        </div>
+        <div class="row row-wrap">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-lg-2 col-md-3 col-sm-6 item-product">
+                    <a href="" class="favourite" title="sản phẩm yêu thích">
+                        <i class="far fa-heart heart--transparent"></i>
+                    </a>
+                    <img src="@item.Image" class="upload-image" width="99%" />
+                    <a href="" class=" name-product">@item.Name</a>
+                    @if (item.Tag == "0")
+                    {
+                        <p class="vote">Hight rated</p>
+                        <span><i class="fas fa-star vote-star"></i></span>
+                        <span><i class="fas fa-star vote-star"></i></span>
+                        <span><i class="fas fa-star vote-star"></i></span>
+                        <span><i class="fas fa-star vote-star"></i></span>
+                        <span><i class="fas fa-star vote-star"></i></span>
+                    }
+                    @if (item.Tag == "1")
+                    {
+                        <p class="vote">New</p>
+                        <p></p>
+                    }
+                    @if (item.Tag == "2")
+                    {
+                        <p class="vote">Best Seller</p>
+                        <p></p>
+                    }
+                    @if (item.Tag == "3")
+                    {
+                        <p class="vote">New Edition</p>
+                        <p></p>
+                    }
+                    <div class="price">
+                        <h6 class="new-price">@item.NewPrice <sup>đ</sup> </h6>
+                        <h4 class="old-price">@item.OldPrice<sup>đ</sup></h4>
+                    </div>
+                    <a class="btn btn-addcart" asp-action="Details" asp-route-id="@item.Id">
+                        <div class="btn__cart--icon--cricle">
+                            <i class="fas fa-cart-plus btn__cart--cart"></i>
+                        </div>
+                        <span class="btn-cart-title">Xem chi tiết</span>
+                    </a>
+
+                </div>
+
+            }
+        </div>
+
+    </div>
+}

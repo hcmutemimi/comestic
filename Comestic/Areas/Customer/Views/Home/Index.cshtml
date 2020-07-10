@@ -1,0 +1,79 @@
+﻿@model Comestic.Models.ViewModels.IndexViewModel
+
+<partial name="_Slide"/>
+<div class="backgroundWhite container">
+
+    <ul id="menu-filters" class="menu-filter-list list-inline text-center">
+
+        <li class="active btn btn-secondary ml-1 mr-1" data-filter=".menu-restaurant">
+            <a href="/" style="text-decoration:none;">Show All</a>
+        </li>
+
+        @*<li class="btn btn-secondary ml-1 mr-1">
+            <a href="#" style="        text-decoration: none;color:black" class="category--" >TRANG ĐIỂM</a>
+        </li>
+        <li  class="btn btn-secondary ml-1 mr-1" >
+            <a href="#" style="        text-decoration: none;
+        color: black">CHĂM SÓC DA</a>
+        </li>
+        <li  class="btn btn-secondary ml-1 mr-1" >
+            <a href="#" style="        text-decoration: none;
+        color: black">CHĂM SÓC TÓC</a>
+        </li>*@
+
+        @foreach (var item in Model.Category)
+        {
+            <li class="ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">
+
+                @item.Name
+            </li>
+        }
+    <form method="get" asp-action="Search" asp-controller="Home" class="form-inline my-3" style="justify-content: center;">
+      
+        <input class="form-control  py-2 border-right-0 border" name="name" type="search" placeholder="nhập từ tìm kiếm" value=""
+               id="example-search-input" style=" margin-right: 10px; width: 37%; ">
+        <span class="input-group-append">
+            <button class="btn btn-primary" type="submit" style=" background-color: var(--main-color); width: 60px; height: 36px;">
+                <i class="fa fa-search search-icon"></i>
+            </button>
+        </span>
+    </form>
+
+    </ul>
+    @foreach (var category in Model.Category)
+    {
+        <div class="row " id="menu-wrapper">
+            <partial name="_ThumbnailAreaPartial" model="@Model.Product.Where(u=>u.Category.Name.Equals(category.Name))" />
+        </div>
+
+    }
+</div>
+<partial name="_Feedback" />
+<partial name="_Footer2" />
+
+<partial name="_Address" />
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script>
+        var posts = $('.post');
+        (function ($) {
+            $("#menu-filters li").click(function () {
+                $("#menu-filters li").removeClass('active btn btn-secondary');
+                $(this).addClass('active btn btn-secondary');
+
+                var selectedFilter = $(this).data("filter");
+
+                $(".menu-restaurant").fadeOut();
+
+                setTimeout(function () {
+                    $(selectedFilter).slideDown();
+                }, 300);
+            });
+
+        })(jQuery);
+
+    </script>
+}

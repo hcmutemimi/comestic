@@ -1,0 +1,47 @@
+﻿@model Comestic.Models.ViewModels.SubCategoryandCategoryViewModel
+@using Comestic.Extensions
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-info">Chỉnh sửa danh mục LSP</h2>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<form method="post" asp-action="Edit">
+    <input type="hidden" asp-for="SubCategory.CategoryId" />
+    <input type="hidden" asp-for="SubCategory.Id" />
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="SubCategory.CategoryId" class="col-form-label">Loại sản phẩm </label>
+            </div>
+            <div class="col-5">
+                <select id="ddlCategoryList" asp-for="SubCategory.CategoryId" disabled
+                        asp-items="Model.CategoryList.ToSelectListItem(Model.SubCategory.CategoryId)" class="form-control">
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+
+            <div class="col-3">
+                <label asp-for="SubCategory.Name"> Tên danh mục LSP</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="SubCategory.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="SubCategory.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-3 row">
+                <div class="col-6"><input type="submit" class="btn btn-primary form-control" value="Cập nhật" /></div>
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-success form-control">Quay về</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
