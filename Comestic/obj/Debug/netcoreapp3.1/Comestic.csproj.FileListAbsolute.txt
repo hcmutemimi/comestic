@@ -445,7 +445,6 @@ C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Ide
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\LoginWith2fa.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\LoginWithRecoveryCode.cshtml.g.cs
-C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\login_.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Logout.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\DeletePersonalData.cshtml.g.cs
@@ -503,3 +502,4 @@ C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Comestic.csproj
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Home\Category.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Home\Search.cshtml.g.cs
 C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Customer\Views\Order\Ordered.cshtml.g.cs
+C:\Users\miqng\Desktop\Comestic\Comestic\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\LoginAdmin.cshtml.g.cs

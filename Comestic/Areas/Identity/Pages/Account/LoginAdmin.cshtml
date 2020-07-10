@@ -1,0 +1,53 @@
+﻿@page
+@model LoginAdminModel
+@{
+    ViewData["Title"] = "";
+}
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-8" style="float:none;margin:auto;text-align:center">
+        <section>
+            <form id="account" method="post">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>đăng nhập dành cho quản trị viên</h4>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <div class="row" style="margin: 20px 0">
+                                <div class="col-4"> <label asp-for="Input.Email"></label></div>
+                                <div class="col-6">
+                                    <input asp-for="Input.Email" class="form-control" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 20px 0">
+                                <div class="col-4 "><label asp-for="Input.Password"></label></div>
+                                <div class="col-6">
+                                    <input asp-for="Input.Password" class="form-control" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 20px 0">
+                                <div class="offset-4 col-6">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;background-color: #333230;">Đăng nhập</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+               
+                </div>
+              
+                
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

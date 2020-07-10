@@ -37,21 +37,21 @@
                         <li class="nav-item dropdown nav-link hotline" style="cursor:default"><i class="fas fa-phone header-cart-icon-phone " style="margin-right:5px"></i>Hotline: 0329806032</li>
 
 
-                        @if (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.EmployeeUser))
+                        @if (User.IsInRole(SD.ManagerUser))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle nav-link-title" href="#" role="button" id="navbarDropDownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Quản lý
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Loại sản phẩm</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">Danh mục loại sản phẩm </a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Sản phẩm</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Khuyến mãi</a>
-                                    @if (User.IsInRole(SD.ManagerUser))
-                                    {
+                                   
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>
-                                    }
+                                    
                                 </div>
                             </li>
                         }
@@ -63,7 +63,7 @@
                                 </a>
                             </li>
                         }
-                        @if (User.IsInRole(SD.ManagerUser))
+                        @if (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.EmployeeUser))
                         {
 
                             <li class="nav-item dropdown">
