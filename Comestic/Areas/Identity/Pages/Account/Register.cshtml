@@ -11,7 +11,7 @@
 
             <!-- Register form -->
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <div class="auth__form " id="form-register">
+                <div class="auth__form " id="form-register" style="margin-top: 57px;">
                     <div class="auth__form-container">
                         <div class="auth__form-header">
                             <h4 class="auth__form-heading" id="heading-register-from-registerform">Đăng ký</h4>
@@ -59,8 +59,7 @@
 
                             </div>
                         </div>
-                        @if (User.IsInRole(SD.CustomerUser))
-                        {
+                       
                             <div class="auth__form-aside">
                                 <p class="auth__form-policy-text">
                                     Bằng việc đăng ký, bạn đồng ý với chúng tôi

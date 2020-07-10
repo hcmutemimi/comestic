@@ -1461,4 +1461,12 @@ grid__row-1 {
     color: var(--white-color);
    
 }
+.email-form {
+    display: flex;
+    align-items: center;
+
+}
+.form-control:focus{
+    border-color: var(--main-color);
+}
 
